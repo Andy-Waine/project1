@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Tiempos Fine, Times New Roman, sans-serif;
+}
+
+#app {
+  background-color:#fefaf8;
+  font-family: Tiempos Fine, Times New Roman, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+h1 {
+    font-family: Tiempos Fine, Times New Roman, sans-serif;
+    font-size: 3.5em;
+    line-height: 120%;
+    font-weight: 300;
+}
+
+.dark-green {
+  color: #165631;
+}
+
+.dark-green-bg {
+  background-color: #165631;
+}
+
+
