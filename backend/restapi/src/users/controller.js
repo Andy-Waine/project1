@@ -28,6 +28,14 @@ const addUser = (req, res) => {
     if (results.rows.length) {
       res.send('Email already exists');
     }
+
+    // add user to db
+    pool.query(queries.addUser, [username, password, firstname, lastname, email], (error, results) => {
+      if (error) {
+        throw error;
+      }
+      res.status(201).send(`User added successfully.`);
+    })
   })
 }
 
