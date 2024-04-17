@@ -39,9 +39,30 @@ const addUser = (req, res) => {
   })
 }
 
+const deleteUser = (req, res) => {
+  const id = parseInt(req.params.id);
+
+  // check if email exists in db
+  pool.query(queries.deleteUser, [id], (error, results) => {
+    const userNotFound = !results.rowCount;
+    if (userNotFound) {
+      res.send(`User not found with ID: ${id}`);
+    }
+
+    // delete user from db
+    pool.query(queries.deleteUser, [id], (error, results) => {
+      if (error) {
+        throw error;
+      }
+      res.status(200).send(`User deleted with ID: ${id}`);
+    })
+  })
+}
+
 
 module.exports = {
   getUsers,
   getUserById,
-  addUser
+  addUser,
+  deleteUser
 }
