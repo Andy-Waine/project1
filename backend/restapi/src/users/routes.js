@@ -10,6 +10,9 @@ router.get("/:id", controller.getUserById);
 // POST
 router.post("/", controller.addUser);
 
+// PUT
+router.put("/:id", controller.updateUserPassword);
+
 // DELETE
 router.delete("/:id", controller.deleteUser);
 module.exports = router;

@@ -44,8 +44,7 @@ const deleteUser = (req, res) => {
 
   // check if email exists in db
   pool.query(queries.deleteUser, [id], (error, results) => {
-    const userNotFound = !results.rowCount;
-    if (userNotFound) {
+    if (!results.rowCount) {
       res.send(`User not found with ID: ${id}`);
     }
 
@@ -59,10 +58,29 @@ const deleteUser = (req, res) => {
   })
 }
 
+const updateUserPassword = (req, res) => {
+  const id = parseInt(req.params.id)
+  const { password } = req.body;
+
+  pool.query(queries.getUserById, [id], (error, results) => {
+    if (!results.rows.length) {
+      res.send(`User not found with ID: ${id}`);
+    }
+
+    pool.query(queries.updateUserPassword, [password, id], (error, results) => {
+      if (error) {
+        throw error;
+      }
+      res.status(200).send(`Password updated for user with ID: ${id}`);
+    })
+  })
+} 
+
 
 module.exports = {
   getUsers,
   getUserById,
   addUser,
-  deleteUser
+  deleteUser,
+  updateUserPassword
 }
