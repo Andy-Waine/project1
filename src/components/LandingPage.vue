@@ -1,6 +1,6 @@
 <script setup>
 // import axios from 'axios'; // dont need this, delete from package.
-import { ref } from 'vue'; 
+import { ref } from 'vue';
 
 // Define data properties
 const username = ref('');
@@ -45,7 +45,7 @@ const submitUser = async () => {
   <div class="login-container">
     <div class="login-box">
       <h1 class="dark-green" style="margin: 0 0 25px 0">Sign In</h1>
-      <!-- <form class="login-form">
+      <form class="login-form">
         <label for="username" class="dark-green">
           Username:
         </label>
@@ -57,7 +57,7 @@ const submitUser = async () => {
         <input type="password" id="password" name="password">
 
         <button type="submit">Sign In</button>
-      </form> -->
+      </form>
     </div>
   </div>
     <div>
