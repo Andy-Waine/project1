@@ -1,48 +1,5 @@
-<script setup>
-// import axios from 'axios'; // dont need this, delete from package.
-import { ref } from 'vue';
-
-// Define data properties
-const username = ref('');
-const password = ref('');
-const firstname = ref('');
-const lastname = ref('');
-const email = ref('');
-
-const submitUser = async () => {
-  const userData = {
-    username: username.value,
-    password: password.value,
-    firstname: firstname.value,
-    lastname: lastname.value,
-    email: email.value
-  };
-
-  // Make an HTTP POST request to send user data to the backend
-  fetch('http://localhost:3000/api/v1/users/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(userData),
-  })
-    .then(response => {
-      if (response.ok) {
-        // User successfully signed up
-        console.log('User signed up successfully');
-      } else {
-        // Handle signup error
-        console.error('Error signing up:', response.statusText);
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-};
-</script>
-
 <template>
-  <div class="login-container">
+  <div v-if="!showSignupForm" class="login-container">
     <div class="login-box">
       <h1 class="dark-green" style="margin: 0 0 25px 0">Sign In</h1>
       <form class="login-form">
@@ -57,20 +14,24 @@ const submitUser = async () => {
         <input type="password" id="password" name="password">
 
         <button type="submit">Sign In</button>
+        <div class="sign-up-link dark-green">
+         Need an account? <a href="#" @click.prevent="showSignupForm = !showSignupForm">Sign up</a>
+        </div>
       </form>
     </div>
   </div>
-    <div>
-    <form @submit.prevent="submitUser">
-      <input type="text" v-model="username" placeholder="Username">
-      <input type="password" v-model="password" placeholder="Password">
-      <input type="text" v-model="firstname" placeholder="First Name">
-      <input type="text" v-model="lastname" placeholder="Last Name">
-      <input type="email" v-model="email" placeholder="Email">
-      <button type="submit">Sign Up</button>
-    </form>
+  <div v-if="showSignupForm">
+    <SignupForm />
   </div>
 </template>
+
+<script setup>
+import SignupForm from './SignupForm.vue';
+import { ref } from 'vue';
+
+const showSignupForm = ref(false);
+console.log(showSignupForm.value);
+</script>
 
 <style scoped>
 .login-container {
@@ -125,6 +86,12 @@ button {
   font-family: Tiempos Fine, Times New Roman, sans-serif;
 }
 
-
+.sign-up-link {
+  margin-top: 12px;
+  align-content: center;
+  justify-content: center;
+  display: flex;
+  font-size: 1rem;
+}
 
 </style>
